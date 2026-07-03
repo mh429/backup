@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+input[type="text"] {
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+select {
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+textarea {
+  border: 1px solid #000;
+  border-radius: 3px;
+}
