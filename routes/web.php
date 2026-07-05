@@ -73,3 +73,9 @@ Route::middleware('auth')->group(function () {
     ->name('product.store');
 
 });
+
+Route::get('product', [ProductController::class, 'index'])
+->name('product.index');
+
+Route::get('product/show/{product}', [ProductController::class, 'show'])
+->name('product.show');

@@ -11,8 +11,11 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     // 商品登録画面を表示
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->filled('from')) {
+            session(['product_create_from' => $request->from]);
+        }
         $product = session('product');
         $categories = ProductCategory::select('id', 'name')->get();
 
@@ -94,6 +97,26 @@ class ProductController extends Controller
  
         session()->forget('product');
  
-        return redirect()->route('top');
+        return redirect()->route('product.index');
+    }
+
+    // 商品一覧表示
+    public function index()
+    {
+        // リレーションも取得
+        $products = Product::with(['category', 'subcategory'])->get();
+        // カテゴリ一覧を取得
+        $categories = ProductCategory::select('id', 'name')->get();
+
+        return view('product.index', compact('products', 'categories'));
+    }
+
+    // 商品詳細表示
+    public function show(Product $product)
+    {
+        // リレーションを取得
+        $product->load(['category', 'subcategory']);
+        
+        return view('product.show', compact('product'));
     }
 }

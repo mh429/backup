@@ -3,8 +3,8 @@
     @auth
       <p>{{ auth()->user()->name_sei }} {{ auth()->user()->name_mei }}様</p>
       <div>
-        <a href="">商品一覧</a>
-        <a href="{{ route('product.create') }}">新規商品登録</a>
+        <a href="{{ route('product.index') }}">商品一覧</a>
+        <a href="{{ route('product.create', ['from' => 'top']) }}">新規商品登録</a>
         <form action="{{ route('logout') }}" method="POST">
           @csrf
           <button type="submit">ログアウト</button>

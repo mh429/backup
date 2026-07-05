@@ -73,6 +73,10 @@
 
   </form>
 
-  <a href="/">トップに戻る</a>
+  @if(session('product_create_from') === 'top')
+    <a href="{{ route('top') }}">トップに戻る</a>
+  @else
+    <a href="{{ route('product.index') }}">商品一覧に戻る</a>
+  @endif
 
 </x-layout>
