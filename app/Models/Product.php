@@ -36,4 +36,9 @@ class Product extends Model
     {
         return $this->belongsTo(ProductSubcategory::class, 'product_subcategory_id');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

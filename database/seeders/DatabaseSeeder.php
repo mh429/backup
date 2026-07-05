@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\Review;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +22,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Product::factory(60)->create();
+        // Product::factory(60)->create();
+
+        Review::factory(1)->create();
 
         
     }

@@ -104,9 +104,10 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         // リレーションも取得
-        $products = Product::with(['category', 'subcategory'])->get();
+        // $products = Product::with(['category', 'subcategory'])->get();
 
-        $query = Product::with(['category', 'subcategory']);
+        $query = Product::with(['category', 'subcategory'])
+            ->withAvg('reviews', 'evaluation');
 
         // 大カテゴリ
         if ($request->filled('product_category_id')) {
@@ -148,7 +149,24 @@ class ProductController extends Controller
     {
         // リレーションを取得
         $product->load(['category', 'subcategory']);
+        $average = $product->reviews()->avg('evaluation');
 
-        return view('product.show', compact('product'));
+        return view('product.show', compact('product', 'average'));
+    }
+
+    // 商品ごとのレビュー表示
+    public function showReviews(Product $product)
+    {
+        // リレーションを取得
+        $product->load(['category', 'subcategory']);
+        $average = $product->reviews()->avg('evaluation');
+
+        // レビュー一覧（3件ずつ）
+        $reviews = $product->reviews()
+            ->with('user')
+            ->latest()
+            ->paginate(6);
+
+        return view('product.showreviews', compact('product', 'average', 'reviews'));
     }
 }

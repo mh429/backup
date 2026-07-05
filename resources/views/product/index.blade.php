@@ -54,7 +54,21 @@
       <div>
         <p>{{ $product->category->name }}>{{ $product->subcategory->name }}</p>
         <p><a href="{{ route('product.show', $product) }}">{{ $product->name }}</a></p>
-        <p><a href="{{ route('product.show', $product) }}">詳細</a></p>
+        <div>
+          @if ($product->reviews_avg_evaluation)
+            <div>
+              @for ($i = 0; $i < ceil($product->reviews_avg_evaluation); $i++)
+                <span>★</span>
+              @endfor
+            </div>
+            <p>{{ ceil($product->reviews_avg_evaluation) }}</p>
+          @else
+            <p></p>
+          @endif
+        </div>
+      </div>
+      <div>
+        <p><a href="{{ route('product.show', $product) }}">詳細</a></p>        
       </div>
     </div>
   @endforeach
