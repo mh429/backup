@@ -27,5 +27,5 @@
     </div>
   </div>
 
-  <a href="{{ route('product.index') }}">商品一覧に戻る</a>
+  <a href="{{ session('product_index_url', route('product.index')) }}">商品一覧に戻る</a>
 </x-layout>

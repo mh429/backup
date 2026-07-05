@@ -13,22 +13,22 @@
       @csrf
       <p>カテゴリ</p>
       <div>
-        <select id="category" name="product_category_id" required>
+        <select id="category" name="product_category_id">
           <option value="">選択してください</option>
           @foreach ($categories as $category)
-            <option value="{{ $category->id }}" @selected(old('product_category_id', $product['product_category_id'] ?? '') == $category->id)>
+            <option value="{{ $category->id }}" @selected(($product_search['product_category_id'] ?? '') == $category->id)>
               {{ $category->name }}
             </option>
           @endforeach  
         </select>  
         {{-- サブカテゴリの中身はJS側でAjax取得して作る。
              data-selected には「以前選択していたID」を入れておき、取得後にJSでそのIDのoptionにselectedを付ける --}}
-        <select id="subcategory" name="product_subcategory_id" required data-selected="{{ old('product_subcategory_id', $product['product_subcategory_id'] ?? '') }}" style="display:none;">
+        <select id="subcategory" name="product_subcategory_id" data-selected="{{ $product_search['product_subcategory_id'] ?? '' }}" style="display:none;">
         </select>
       </div>    
       <label>
         <p>フリーワード</p>
-        <input type="text">
+        <input type="text" name="freeword" value="{{ $product_search['freeword'] ?? '' }}">
       </label>
       <input type="submit" value="商品検索">
     </form>
@@ -58,6 +58,11 @@
       </div>
     </div>
   @endforeach
+
+  <div>
+    <hr>
+    {{ $products->links() }}
+  </div>
 
   <a href="/">トップに戻る</a>
 </x-layout>

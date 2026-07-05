@@ -101,14 +101,46 @@ class ProductController extends Controller
     }
 
     // 商品一覧表示
-    public function index()
+    public function index(Request $request)
     {
         // リレーションも取得
         $products = Product::with(['category', 'subcategory'])->get();
+
+        $query = Product::with(['category', 'subcategory']);
+
+        // 大カテゴリ
+        if ($request->filled('product_category_id')) {
+            $query->where('product_category_id', $request->product_category_id);
+        }
+
+        // 小カテゴリ
+        if ($request->filled('product_subcategory_id')) {
+            $query->where('product_subcategory_id', $request->product_subcategory_id);
+        }
+
+        // フリーワード
+        if ($request->filled('freeword')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->freeword . '%')
+                ->orWhere('product_content', 'like', '%' . $request->freeword . '%');
+            });
+        }
+
+        $products = $query->paginate(10)->withQueryString();
+
+        // 検索条件をビューへ渡す
+        $product_search = $request->only([
+            'product_category_id',
+            'product_subcategory_id',
+            'freeword',
+        ]);
+
         // カテゴリ一覧を取得
         $categories = ProductCategory::select('id', 'name')->get();
 
-        return view('product.index', compact('products', 'categories'));
+        session(['product_index_url' => url()->full()]);
+
+        return view('product.index', compact('products', 'categories', 'product_search'));
     }
 
     // 商品詳細表示
@@ -116,7 +148,7 @@ class ProductController extends Controller
     {
         // リレーションを取得
         $product->load(['category', 'subcategory']);
-        
+
         return view('product.show', compact('product'));
     }
 }
