@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\MypageController;
 
 
 /**
@@ -100,4 +101,54 @@ Route::middleware('auth')->group(function () {
     Route::post('review/store/{product}', [ReviewController::class, 'store'])
     ->name('review.store');
 
+});
+
+
+/**
+ * マイページ機能
+ */
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('mypage', [MypageController::class, 'mypage'])
+    ->name('mypage');
+
+    /**
+     * 退会
+     */
+    Route::get('mypage/withdrawal', [MypageController::class, 'withdrawalConfirm'])
+    ->name('mypage.withdrawalconfirm');
+
+    Route::post('mypage/withdrawal', [MypageController::class, 'withdrawal'])
+    ->name('mypage.withdrawal');
+
+    /**
+     * 会員情報変更
+     */
+    Route::get('mypage/edit', [MypageController::class, 'edit'])
+    ->name('mypage.edit');
+
+    Route::post('mypage/edit', [MypageController::class, 'editConfirm'])
+    ->name('mypage.edit.confirm');
+
+    Route::patch('mypage/edit', [MypageController::class, 'update'])
+    ->name('mypage.update');
+
+    /**
+     * パスワード変更
+     */
+    Route::get('mypage/editpassword', [MypageController::class, 'editPassword'])
+    ->name('mypage.editpassword');
+
+    Route::patch('mypage/editpassword', [MypageController::class, 'updatePassword'])
+    ->name('mypage.updatepassword');
+
+    /**
+     * メールアドレス変更
+     */
+    Route::get('mypage/editpassword', [MypageController::class, 'editPassword'])
+    ->name('mypage.editpassword');
+
+    Route::patch('mypage/editpassword', [MypageController::class, 'updatePassword'])
+    ->name('mypage.updatepassword');
 });
