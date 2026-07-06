@@ -51,6 +51,8 @@
       <a href="{{ route('mypage.editemail') }}">メールアドレス変更</a>      
     </div>
 
+    <a href="{{ route('mypage.review') }}">商品レビュー管理</a>
+
     <a href="{{ route('mypage.withdrawalconfirm') }}">退会する</a>
   </div>
 </x-layout>

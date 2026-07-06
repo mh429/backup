@@ -8,15 +8,23 @@ use Illuminate\Validation\Rule;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MypageEmailUpdateMail;
+use App\Models\Review;
 
 class MypageController extends Controller
 {
-    // マイページ表示
+    /**
+     * マイページ表示
+     */
+
     public function mypage()
     {
         $member = Auth::user();
         return view('mypage.mypage', compact('member'));
     }
+
+    /**
+     * 退会
+     */
 
     // 退会確認
     public function withdrawalConfirm()
@@ -37,6 +45,10 @@ class MypageController extends Controller
 
         return to_route('top');
     }
+
+    /**
+     * 編集
+     */
 
     // 編集画面
     public function edit()
@@ -85,6 +97,10 @@ class MypageController extends Controller
         return to_route('mypage');
     }
 
+    /**
+     * パスワード変更
+     */
+
     // パスワード変更画面
     public function editPassword()
     {
@@ -109,6 +125,10 @@ class MypageController extends Controller
 
         return to_route('mypage');
     }
+
+    /**
+     * メールアドレス変更
+     */
 
     // メールアドレス変更画面
     public function editEmail()
@@ -163,4 +183,83 @@ class MypageController extends Controller
 
         return to_route('mypage');
     }   
+
+    /**
+     * レビュー管理
+     */
+
+    // レビュー一覧
+    public function review() 
+    {
+        $reviews = Auth::user()
+            ->reviews()
+            ->with([
+                'product.category',
+                'product.subcategory',
+            ])
+            ->paginate(5);
+
+        return view('mypage.review.index', compact('reviews'));
+    }
+
+    // レビュー編集
+    public function reviewEdit(Review $review)
+    {
+        $review->load('product');
+        $review->product->loadAvg('reviews', 'evaluation');
+
+        $input = session("reviewedit.{$review->id}");
+
+        return view('mypage.review.edit', compact('review', 'input'));
+    }
+    // レビュー編集確認
+    public function reviewEditConfirm(Review $review, Request $request)
+    {
+        $data = $request->validate([
+            'evaluation' => ['required', 'integer', 'between:1,5'],
+            'comment' => ['required', 'string', 'max:500',],
+        ]);
+
+        session()->put("reviewedit.{$review->id}", $data);
+
+        $review->load('product');
+        $review->product->loadAvg('reviews', 'evaluation');
+
+        return view('mypage.review.edit_confirm', compact('review', 'data'));
+    }
+    // DB登録
+    public function reviewUpdate(Review $review)
+    {
+        abort_if($review->member_id !== Auth::id(), 403);
+
+        $data = session("reviewedit.{$review->id}", []);
+        if (!$data) {
+            return redirect()->route('top');
+        }
+ 
+        $review->update($data);
+ 
+        session()->forget("reviewedit.{$review->id}");
+ 
+        return to_route('mypage.review');
+    }
+
+    // レビュー削除確認
+    public function reviewDeleteConfirm(Review $review)
+    {
+        $review->load('product');
+        $review->product->loadAvg('reviews', 'evaluation');
+
+        return view('mypage.review.delete_confirm', compact('review'));
+    }
+    // DB更新
+    public function reviewDelete(Review $review)
+    {
+        abort_if($review->member_id !== Auth::id(), 403);
+        
+        // ソフトデリート
+        $review->delete();
+
+        return to_route('mypage.review');
+    }
 }

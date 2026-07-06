@@ -87,12 +87,12 @@ class User extends Authenticatable
     // リレーション
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'member_id');
     }
 
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'member_id');
     }
 
 }

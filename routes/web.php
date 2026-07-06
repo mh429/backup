@@ -154,4 +154,27 @@ Route::middleware('auth')->group(function () {
 
     Route::patch('mypage/updateemail', [MypageController::class, 'updateEmail'])
     ->name('mypage.updateemail');
+
+    /**
+     * レビュー管理
+     */
+    Route::get('mypage/review', [MypageController::class, 'review'])
+    ->name('mypage.review');
+
+    // 編集
+    Route::get('mypage/review/{review}/edit', [MypageController::class, 'reviewEdit'])
+    ->name('mypage.review.edit');
+
+    Route::post('mypage/review/{review}/edit/confirm', [MypageController::class, 'reviewEditConfirm'])
+    ->name('mypage.review.edit.confirm');
+
+    Route::patch('mypage/review/{review}/update', [MypageController::class, 'reviewUpdate'])
+    ->name('mypage.review.update');
+
+    // 削除
+    Route::get('mypage/review/{review}/delete/confirm', [MypageController::class, 'reviewDeleteConfirm'])
+    ->name('mypage.review.delete.confirm');
+
+    Route::delete('mypage/review/{review}/delete', [MypageController::class, 'reviewDelete'])
+    ->name('mypage.review.delete');
 });

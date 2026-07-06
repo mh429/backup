@@ -15,11 +15,11 @@
       <p>更新日時：{{ $product->updated_at->format('Ymd') }}</p>
     </div>
     <div>
-      @foreach (['image_1', 'image_2', 'image_3', 'image_4'] as $column)
-        @if (!empty($product->$column))
-          <img src="{{ asset('storage/' . $product->$column) }}" style="width: 200px">
-        @endif
-      @endforeach
+      @if (!empty($product->images))
+        @foreach ($product->images as $image)
+          <img src="{{ asset('storage/' . $image) }}" style="width: 200px">
+        @endforeach
+      @endif
     </div>
     <div>
       <p>◾商品説明</p>

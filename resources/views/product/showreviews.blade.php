@@ -10,17 +10,8 @@
 
   <div>
     <div>
-      @php
-        $image = null;
-        foreach (['image_1', 'image_2', 'image_3', 'image_4'] as $column) {
-            if (!empty($product->$column)) {
-                $image = $product->$column;
-                break;
-            }
-        }
-      @endphp
-      @if ($image)
-        <img src="{{ asset('storage/' . $image) }}" style="width: 200px">
+      @if ($product->thumbnail)
+        <img src="{{ asset('storage/' . $product->thumbnail) }}" style="width: 200px">
       @endif
     </div>
     <div>

@@ -41,4 +41,25 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    // アクセサ
+    public function getThumbnailAttribute(): ?string
+    {
+        foreach (['image_1', 'image_2', 'image_3', 'image_4'] as $column) {
+            if (!empty($this->$column)) {
+                return $this->$column;
+            }
+        }
+        return null;
+    }
+
+    public function getImagesAttribute(): array
+    {
+        return collect([
+            $this->image_1,
+            $this->image_2,
+            $this->image_3,
+            $this->image_4,
+        ])->filter()->values()->all();
+    }
 }
