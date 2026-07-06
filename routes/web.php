@@ -146,9 +146,12 @@ Route::middleware('auth')->group(function () {
     /**
      * メールアドレス変更
      */
-    Route::get('mypage/editpassword', [MypageController::class, 'editPassword'])
-    ->name('mypage.editpassword');
+    Route::get('mypage/editemail', [MypageController::class, 'editEmail'])
+    ->name('mypage.editemail');
 
-    Route::patch('mypage/editpassword', [MypageController::class, 'updatePassword'])
-    ->name('mypage.updatepassword');
+    Route::post('mypage/editemailsendcode', [MypageController::class, 'editEmailSendcode'])
+    ->name('mypage.editemail.sendcode');
+
+    Route::patch('mypage/updateemail', [MypageController::class, 'updateEmail'])
+    ->name('mypage.updateemail');
 });

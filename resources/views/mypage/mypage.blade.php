@@ -48,7 +48,7 @@
           <td>{{ $member->email }}</td>
         </tr>
       </table>
-      <a href="">メールアドレス変更</a>      
+      <a href="{{ route('mypage.editemail') }}">メールアドレス変更</a>      
     </div>
 
     <a href="{{ route('mypage.withdrawalconfirm') }}">退会する</a>

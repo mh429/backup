@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MypageEmailUpdateMail;
 
 class MypageController extends Controller
 {
@@ -109,4 +110,57 @@ class MypageController extends Controller
         return to_route('mypage');
     }
 
+    // メールアドレス変更画面
+    public function editEmail()
+    {
+        $member = Auth::user();
+
+        return view('mypage.editemail', compact('member'));
+    }
+    // 認証コード送信
+    public function editEmailSendcode(Request $request)
+    {
+        $data = $request->validate(
+        [
+            'email' => ['required', 'string', 'max:200', 'email', 'unique:members,email',],
+        ]
+        );
+
+        session()->put('member.editingemail', $data);
+
+        // 認証コードを記載したメールを送信
+        do {
+            $auth_code = random_int(100000, 999999);
+        } while (
+            User::where('auth_code', $auth_code)->exists()
+        );
+        $member = Auth::user();
+        $member->update([
+            'auth_code' => $auth_code,
+        ]);
+
+        Mail::to($data['email'])->send(new MypageEmailUpdateMail($auth_code));
+
+        return view('mypage.editemail_inputcode');
+    }
+    // DB登録
+     public function updateEmail(Request $request)
+    {
+        // 認証コード確認
+        $member = Auth::user();
+        if ($request->auth_code != $member->auth_code) {
+            return back()->withErrors([
+                'auth_code' => '認証コードが違います。'
+            ]);
+        }
+
+        $member->update([
+            'email' => session('member.editingemail.email'),
+            'auth_code' => null,
+        ]);
+ 
+        session()->forget('member.editingemail');     
+
+        return to_route('mypage');
+    }   
 }
