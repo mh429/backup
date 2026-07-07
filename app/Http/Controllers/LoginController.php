@@ -31,6 +31,7 @@ class LoginController extends Controller
         );
 
         if (Auth::attempt($data)) {
+
             $request->session()->regenerate();
 
             return to_route('top');
@@ -49,6 +50,8 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // $request->session()->regenerate();
 
         return to_route('top');
     }

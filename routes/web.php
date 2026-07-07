@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\AdminLoginController;
 
 
 /**
@@ -177,4 +178,25 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('mypage/review/{review}/delete', [MypageController::class, 'reviewDelete'])
     ->name('mypage.review.delete');
+});
+
+
+/**
+ * 管理者ログイン関連
+ */
+
+Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])
+->name('admin.login');
+
+Route::post('admin/login', [AdminLoginController::class, 'login']);
+
+
+Route::middleware('auth:admin')->group(function () {
+
+    Route::post('admin/logout', [AdminLoginController::class, 'logout'])
+    ->name('admin.logout');
+
+    Route::get('admin/index', [AdminLoginController::class, 'index'])
+    ->name('admin.index');
+
 });
