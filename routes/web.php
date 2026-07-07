@@ -221,19 +221,19 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('admin/member/store', [AdminMemberController::class, 'store'])
     ->name('admin.member.store');
 
-    Route::get('admin/member/show/{member}', [AdminMemberController::class, 'show'])
+    Route::get('admin/member/show/{user}', [AdminMemberController::class, 'show'])
     ->name('admin.member.show');
 
-    Route::get('admin/member/{member}/edit', [AdminMemberController::class, 'edit'])
+    Route::get('admin/member/{user}/edit', [AdminMemberController::class, 'edit'])
     ->name('admin.member.edit');
 
-    Route::post('admin/member/{member}/edit/confirm', [AdminMemberController::class, 'editConfirm'])
+    Route::post('admin/member/{user}/edit/confirm', [AdminMemberController::class, 'editConfirm'])
     ->name('admin.member.edit.confirm');
 
-    Route::patch('admin/member/{member}', [AdminMemberController::class, 'update'])
+    Route::patch('admin/member/{user}', [AdminMemberController::class, 'update'])
     ->name('admin.member.update');
 
-    Route::delete('admin/member/{member}', [AdminMemberController::class, 'destroy'])
+    Route::delete('admin/member/{user}', [AdminMemberController::class, 'destroy'])
     ->name('admin.member.destroy');
 
 });

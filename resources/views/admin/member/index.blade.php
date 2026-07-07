@@ -83,8 +83,8 @@
         <td>{{ config('master.gender')[$member->gender] }}</td>
         <td>{{ $member->email }}</td>
         <td>{{ $member->created_at->format('Y/n/j') }}</td>
-        <td><a href="">編集</a></td>
-        <td><a href="">詳細</a></td>        
+        <td><a href="{{ route('admin.member.edit', $member->id) }}">編集</a></td>
+        <td><a href="{{ route('admin.member.show', $member->id) }}">詳細</a></td>        
       </tr>
 
       @endforeach

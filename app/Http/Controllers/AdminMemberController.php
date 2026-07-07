@@ -75,9 +75,9 @@ class AdminMemberController extends Controller
 
     }
 
-    public function show()
+    public function show(User $user)
     {
-
+        return view('admin.member.show', compact('user'));
     }
 
     public function edit()
@@ -90,8 +90,14 @@ class AdminMemberController extends Controller
 
     }
 
-    public function destroy()
+    public function destroy(User $user)
     {
+        // ユーザーのレビューをソフトデリート
+        $user->reviews()->delete();
 
+        // ユーザーをソフトデリート
+        $user->delete();
+
+        return redirect(session('admin_member_index_url', route('admin.member.index')));
     }
 }
