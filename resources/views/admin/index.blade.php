@@ -11,5 +11,7 @@
     </div>
   </header>
 
-  <p>管理者TOP画面</p>
+  <a href="{{ route('admin.member.index') }}">会員一覧</a>
+
+  
 </x-admin_layout>

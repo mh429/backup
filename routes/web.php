@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminMemberController;
 
 
 /**
@@ -198,5 +199,41 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::get('admin/index', [AdminLoginController::class, 'index'])
     ->name('admin.index');
+
+});
+
+
+/**
+ * 管理者　会員管理
+ */
+
+Route::middleware('auth:admin')->group(function () {
+
+    Route::get('admin/member/index', [AdminMemberController::class, 'index'])
+    ->name('admin.member.index');
+
+    Route::get('admin/member/create', [AdminMemberController::class, 'create'])
+    ->name('admin.member.create');
+
+    Route::post('admin/member/create/confirm', [AdminMemberController::class, 'createConfirm'])
+    ->name('admin.member.create.confirm');
+
+    Route::post('admin/member/store', [AdminMemberController::class, 'store'])
+    ->name('admin.member.store');
+
+    Route::get('admin/member/show/{member}', [AdminMemberController::class, 'show'])
+    ->name('admin.member.show');
+
+    Route::get('admin/member/{member}/edit', [AdminMemberController::class, 'edit'])
+    ->name('admin.member.edit');
+
+    Route::post('admin/member/{member}/edit/confirm', [AdminMemberController::class, 'editConfirm'])
+    ->name('admin.member.edit.confirm');
+
+    Route::patch('admin/member/{member}', [AdminMemberController::class, 'update'])
+    ->name('admin.member.update');
+
+    Route::delete('admin/member/{member}', [AdminMemberController::class, 'destroy'])
+    ->name('admin.member.destroy');
 
 });
