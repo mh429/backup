@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 
 class AdminMemberController extends Controller
 {
@@ -33,7 +34,6 @@ class AdminMemberController extends Controller
                 ->orWhere('email', 'like', '%' . $request->freeword . '%');
             });
         }
-
 
         // ソート対象
         $sort = $request->input('sort', 'id');
@@ -65,14 +65,51 @@ class AdminMemberController extends Controller
         return view('admin.member.index', compact('members', 'member_search'));
     }
 
-    public function crate()
+    public function create()
     {
+        $member = session('admin.member.create');
+        $mode = 'create';
 
+        return view('admin.member.input', compact('member', 'mode'));
+    }
+
+    public function createConfirm(Request $request)
+    {
+        $data = $request->validate(
+        [
+            'name_sei' => ['required', 'string', 'max:20',],
+            'name_mei' => ['required', 'string', 'max:20',],
+            'nickname' => ['required', 'string', 'max:10',],
+            'gender' => ['required', 'integer', Rule::in(array_keys(config('master.gender')))],
+            'password' => ['required', 'string', 'between:8,20', 'regex:/^[a-zA-Z0-9]+$/', 'confirmed',],
+            'password_confirmation' => ['required', 'string', 'between:8,20', 'regex:/^[a-zA-Z0-9]+$/',],
+            'email' => ['required', 'string', 'max:200', 'email', 'unique:members,email',],
+        ],
+        [
+            'password.regex' => 'パスワードは半角英数字で入力してください。',
+            'password_confirmation.regex' => 'パスワード確認は半角英数字で入力してください。',
+        ]
+        );
+
+        session()->put('admin.member.create', $data);
+        $mode = 'create';
+
+        return view('admin.member.confirm', compact('data', 'mode'));
     }
 
     public function store()
     {
+        $data = session('admin.member.create');
+        if (!$data) {
+            return redirect()->route('admin.member.create');
+        }
 
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
+        
+        session()->forget('admin.member.create');
+
+        return redirect(session('admin_member_index_url', route('admin.member.index')));
     }
 
     public function show(User $user)
@@ -80,21 +117,71 @@ class AdminMemberController extends Controller
         return view('admin.member.show', compact('user'));
     }
 
-    public function edit()
+    public function edit(User $user)
     {
+        // $member = session("admin.member.edit.{$user->id}", $user->toArray());
 
+        $member = session("admin.member.edit.{$user->id}");
+
+        if (!$member) {
+            $member = $user->toArray();
+        } else {
+            $member['id'] = $user->id;
+        }
+
+        $mode = 'edit';
+
+        return view('admin.member.input', compact('member', 'mode'));
     }
 
-    public function update()
+    public function editConfirm(Request $request, User $user)
     {
+        $data = $request->validate(
+        [
+            'name_sei' => ['required', 'string', 'max:20',],
+            'name_mei' => ['required', 'string', 'max:20',],
+            'nickname' => ['required', 'string', 'max:10',],
+            'gender' => ['required', 'integer', Rule::in(array_keys(config('master.gender')))],
+            'password' => ['nullable', 'string', 'between:8,20', 'regex:/^[a-zA-Z0-9]+$/', 'confirmed',],
+            'password_confirmation' => ['nullable', 'string', 'between:8,20', 'regex:/^[a-zA-Z0-9]+$/',],
+            'email' => ['required', 'string', 'max:200', 'email', Rule::unique('members', 'email')->ignore($user->id),],
+        ],
+        [
+            'password.regex' => 'パスワードは半角英数字で入力してください。',
+            'password_confirmation.regex' => 'パスワード確認は半角英数字で入力してください。',
+        ]
+        );
 
+        session()->put("admin.member.edit.{$user->id}", $data);
+        $mode = 'edit';
+
+        return view('admin.member.confirm', compact('data', 'mode', 'user'));
+    }
+
+    public function update(User $user)
+    {
+        $data = session("admin.member.edit.{$user->id}", []);
+        if (!$data) {
+            return redirect()->route('admin.index');
+        }
+ 
+        if (empty($data['password'])) {
+            unset($data['password']);
+        } else {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $user->update($data);
+ 
+        session()->forget("admin.member.edit.{$user->id}");
+ 
+        return redirect(session('admin_member_index_url', route('admin.member.index')));
     }
 
     public function destroy(User $user)
     {
         // ユーザーのレビューをソフトデリート
         $user->reviews()->delete();
-
         // ユーザーをソフトデリート
         $user->delete();
 
