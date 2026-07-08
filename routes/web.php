@@ -9,6 +9,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminMemberController;
+use App\Http\Controllers\AdminCategoryController;
 
 
 /**
@@ -235,5 +236,41 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::delete('admin/member/{user}', [AdminMemberController::class, 'destroy'])
     ->name('admin.member.destroy');
+
+});
+
+
+/**
+ * 管理者　カテゴリ管理
+ */
+
+Route::middleware('auth:admin')->group(function () {
+
+    Route::get('admin/category/index', [AdminCategoryController::class, 'index'])
+    ->name('admin.category.index');
+
+    Route::get('admin/category/create', [AdminCategoryController::class, 'create'])
+    ->name('admin.category.create');
+
+    Route::post('admin/category/create/confirm', [AdminCategoryController::class, 'createConfirm'])
+    ->name('admin.category.create.confirm');
+
+    Route::post('admin/category/store', [AdminCategoryController::class, 'store'])
+    ->name('admin.category.store');
+
+    Route::get('admin/category/show/{productCategory}', [AdminCategoryController::class, 'show'])
+    ->name('admin.category.show');
+
+    Route::get('admin/category/{productCategory}/edit', [AdminCategoryController::class, 'edit'])
+    ->name('admin.category.edit');
+
+    Route::post('admin/category/{productCategory}/edit/confirm', [AdminCategoryController::class, 'editConfirm'])
+    ->name('admin.category.edit.confirm');
+
+    Route::patch('admin/category/{productCategory}', [AdminCategoryController::class, 'update'])
+    ->name('admin.category.update');
+
+    Route::delete('admin/category/{productCategory}', [AdminCategoryController::class, 'destroy'])
+    ->name('admin.category.destroy');
 
 });

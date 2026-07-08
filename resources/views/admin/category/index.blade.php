@@ -1,13 +1,13 @@
 <x-admin_layout>
   <header style="width: 800px; height:100px; background-color: #D0CECE">
-    <h1>会員一覧</h1>
+    <h1>商品カテゴリ一覧</h1>
 
     <div>
       <a href="{{ route('admin.index') }}">トップへ戻る</a>  
     </div>
   </header>
 
-  <a href="{{ route('admin.member.create') }}">新規登録</a>
+  <a href="{{ route('admin.category.create') }}">新規登録</a>
 
   <div>
     <form action="" method="get">
@@ -15,24 +15,13 @@
         <tr>
           <th>ID</th>
           <td>
-            <input type="text" name="member_id" value="{{ $member_search['member_id'] ?? '' }}">
-          </td>
-        </tr>
-        <tr>
-          <th>性別</th>
-          <td>
-            @foreach (config('master.gender') as $key => $value)
-              <label>
-                <input type="checkbox" name="gender[]" value="{{ $key }}"  @checked(in_array($key, $member_search['gender'] ?? []))>
-                  {{ $value }}
-              </label>
-            @endforeach            
+            <input type="text" name="category_id" value="{{ $category_search['category_id'] ?? '' }}">
           </td>
         </tr>
         <tr>
           <th>フリーワード</th>
           <td>
-            <input type="text" name="freeword" value="{{ $member_search['freeword'] ?? '' }}">
+            <input type="text" name="freeword" value="{{ $category_search['freeword'] ?? '' }}">
           </td>
         </tr>      
       </table>      
@@ -45,7 +34,7 @@
   <table>
     <thead>
       <th>
-        <a href="{{ route('admin.member.index', array_merge(request()->query(), [
+        <a href="{{ route('admin.category.index', array_merge(request()->query(), [
             'sort' => 'id',
             'order' => request('sort') === 'id' && request('order') === 'asc'
                 ? 'desc'
@@ -57,11 +46,9 @@
             @endif
         </a>
       </th>
-      <th>氏名</th>
-      <th>性別</th>
-      <th>メールアドレス</th>
+      <th>商品大カテゴリ</th>
       <th>
-        <a href="{{ route('admin.member.index', array_merge(request()->query(), [
+        <a href="{{ route('admin.category.index', array_merge(request()->query(), [
             'sort' => 'created_at',
             'order' => request('sort') === 'created_at' && request('order') === 'asc'
                 ? 'desc'
@@ -77,22 +64,20 @@
       <th>詳細</th>
     </thead>
     <tbody>
-      @foreach ($members as $member)
+      @foreach ($categories as $category)
       <tr>
-        <td>{{ $member->id }}</td>
-        <td>{{ $member->name_sei }}　{{ $member->name_mei }}</td>
-        <td>{{ config('master.gender')[$member->gender] }}</td>
-        <td>{{ $member->email }}</td>
-        <td>{{ $member->created_at->format('Y/n/j') }}</td>
-        <td><a href="{{ route('admin.member.edit', $member->id) }}">編集</a></td>
-        <td><a href="{{ route('admin.member.show', $member->id) }}">詳細</a></td>        
+        <td>{{ $category->id }}</td>
+        <td>{{ $category->name }}</td>
+        <td>{{ $category->created_at->format('Y/n/j') }}</td>
+        <td><a href="{{ route('admin.category.edit', $category->id) }}">編集</a></td>
+        <td><a href="{{ route('admin.category.show', $category->id) }}">詳細</a></td>        
       </tr>
 
       @endforeach
     </tbody>
   </table>
 
-  {{ $members->links() }}
+  {{ $categories->links() }}
 
   
 </x-admin_layout>

@@ -12,6 +12,8 @@
   </header>
 
   <a href="{{ route('admin.member.index') }}">会員一覧</a>
+  <a href="{{ route('admin.category.index') }}">商品カテゴリ一覧</a>
+
 
   
 </x-admin_layout>
