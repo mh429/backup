@@ -10,6 +10,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminMemberController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\AdminProductController;
 
 
 /**
@@ -67,9 +68,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('product/create', [ProductController::class, 'create'])
     ->name('product.create');
-    // サブカテゴリと画像用のルート（Ajax）
-    Route::get('/product/subcategories/{category}',[ProductController::class, 'getSubcategories']);
-    Route::post('/product/upload', [ProductController::class, 'upload']);
 
     Route::post('product/confirm', [ProductController::class, 'confirm'])
     ->name('product.confirm');
@@ -78,6 +76,11 @@ Route::middleware('auth')->group(function () {
     ->name('product.store');
 
 });
+
+// サブカテゴリと画像用のルート（Ajax）
+Route::get('/product/subcategories/{category}',[ProductController::class, 'getSubcategories']);
+Route::post('/product/upload', [ProductController::class, 'upload'])
+->name('product.upload');
 
 Route::get('product', [ProductController::class, 'index'])
 ->name('product.index');
@@ -272,5 +275,45 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::delete('admin/category/{productCategory}', [AdminCategoryController::class, 'destroy'])
     ->name('admin.category.destroy');
+
+});
+
+
+/**
+ * 管理者　商品管理
+ */
+
+Route::middleware('auth:admin')->group(function () {
+
+    Route::get('admin/product/index', [AdminProductController::class, 'index'])
+    ->name('admin.product.index');
+
+    Route::get('admin/product/create', [AdminProductController::class, 'create'])
+    ->name('admin.product.create');
+
+    Route::post('admin/product/create/confirm', [AdminProductController::class, 'createConfirm'])
+    ->name('admin.product.create.confirm');
+
+    Route::post('admin/product/store', [AdminProductController::class, 'store'])
+    ->name('admin.product.store');
+
+    Route::get('admin/product/show/{product}', [AdminProductController::class, 'show'])
+    ->name('admin.product.show');
+
+    Route::get('admin/product/{productModel}/edit', [AdminProductController::class, 'edit'])
+    ->name('admin.product.edit');
+
+    Route::post('admin/product/{product}/edit/confirm', [AdminProductController::class, 'editConfirm'])
+    ->name('admin.product.edit.confirm');
+
+    Route::patch('admin/product/{product}', [AdminProductController::class, 'update'])
+    ->name('admin.product.update');
+
+    Route::delete('admin/product/{product}', [AdminProductController::class, 'destroy'])
+    ->name('admin.product.destroy');
+
+    // 画像用のルート（Ajax）
+    Route::post('admin/product/upload', [ProductController::class, 'upload'])
+    ->name('admin.product.upload');
 
 });

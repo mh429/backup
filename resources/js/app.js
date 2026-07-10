@@ -45,42 +45,6 @@ if (category && subcategory) {
   });
 }
 
-// const category = document.getElementById('category');
-// const subcategory = document.getElementById('subcategory');
- 
-// if (category && subcategory) {
- 
-//   async function loadSubcategories(categoryId, selectedId = '') {
-//     subcategory.innerHTML = '<option value="">選択してください</option>';
- 
-//     if (!categoryId) {
-//       return;
-//     }
- 
-//     const response = await fetch(`/product/subcategories/${categoryId}`);
-//     const data = await response.json();
- 
-//     data.forEach(item => {
-//       const isSelected = String(item.id) === String(selectedId);
-//       subcategory.insertAdjacentHTML(
-//         'beforeend',
-//         `<option value="${item.id}"${isSelected ? ' selected' : ''}>${item.name}</option>`
-//       );
-//     });
-//   }
- 
-//   // 確認画面から「戻る」で戻ってきた時など、大カテゴリが選択済みなら
-//   // サブカテゴリもAjaxで取得して選択状態を復元する
-//   if (category.value) {
-//     loadSubcategories(category.value, subcategory.dataset.selected);
-//   }
- 
-//   // 大カテゴリを変更したらサブカテゴリを再取得（選択はリセット）
-//   category.addEventListener('change', function () {
-//     loadSubcategories(this.value);
-//   });
-// }
-
 
 /**
  * 商品画像登録
@@ -133,12 +97,16 @@ for (let i = 1; i <= 4; i ++) {
       // CSRFトークン取得
       const token = document.querySelector('meta[name="csrf-token"]').content;
 
+      // ブレードからアップロード用のルート名を取得
+      const uploadUrl = document.getElementById('upload_url').value;
+
       // フォーム送信して返り値を受け取る
-      const response = await fetch('/product/upload', {
+      const response = await fetch(uploadUrl, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': token,
         },
+        credentials: 'same-origin',
         body: formData,
       });
       if (!response.ok) {
@@ -158,5 +126,8 @@ for (let i = 1; i <= 4; i ++) {
     });
   }
 }
+
+
+
 
 

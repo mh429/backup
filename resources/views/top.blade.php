@@ -13,7 +13,7 @@
       </div>
     @else
       <div>
-        <a href="">商品一覧</a>
+        <a href="{{ route('product.index') }}">商品一覧</a>
         <a href="{{ route('member.create') }}">新規会員登録</a>   
         <a href="{{ route('login') }}">ログイン</a> 
       </div>

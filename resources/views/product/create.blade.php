@@ -42,6 +42,12 @@
     <div>
       <p>商品写真</p>    
       <div>
+        {{-- JSにアップロード用のルート名を渡す --}}
+        <input
+        type="hidden"
+        id="upload_url"
+        value="{{ route('product.upload') }}">
+        
         @for($i = 1; $i <= 4; $i++)
           <div>
             <p>写真{{ $i }}</p>
