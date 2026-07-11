@@ -14,6 +14,7 @@
   <a href="{{ route('admin.member.index') }}">会員一覧</a>
   <a href="{{ route('admin.category.index') }}">商品カテゴリ一覧</a>
   <a href="{{ route('admin.product.index') }}">商品一覧</a>
+  <a href="{{ route('admin.review.index') }}">商品レビュー一覧</a>
 
 
   

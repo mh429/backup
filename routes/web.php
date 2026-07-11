@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminMemberController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminReviewController;
 
 
 /**
@@ -315,5 +316,41 @@ Route::middleware('auth:admin')->group(function () {
     // 画像用のルート（Ajax）
     Route::post('admin/product/upload', [ProductController::class, 'upload'])
     ->name('admin.product.upload');
+
+});
+
+
+/**
+ * 管理者　レビュー管理
+ */
+
+Route::middleware('auth:admin')->group(function () {
+
+    Route::get('admin/review/index', [AdminReviewController::class, 'index'])
+    ->name('admin.review.index');
+
+    Route::get('admin/review/create', [AdminReviewController::class, 'create'])
+    ->name('admin.review.create');
+
+    Route::post('admin/review/create/confirm', [AdminReviewController::class, 'createConfirm'])
+    ->name('admin.review.create.confirm');
+
+    Route::post('admin/review/store', [AdminReviewController::class, 'store'])
+    ->name('admin.review.store');
+
+    Route::get('admin/review/show/{review}', [AdminReviewController::class, 'show'])
+    ->name('admin.review.show');
+
+    Route::get('admin/review/{reviewModel}/edit', [AdminReviewController::class, 'edit'])
+    ->name('admin.review.edit');
+
+    Route::post('admin/review/{review}/edit/confirm', [AdminReviewController::class, 'editConfirm'])
+    ->name('admin.review.edit.confirm');
+
+    Route::patch('admin/review/{review}', [AdminReviewController::class, 'update'])
+    ->name('admin.review.update');
+
+    Route::delete('admin/review/{review}', [AdminReviewController::class, 'destroy'])
+    ->name('admin.review.destroy');
 
 });
