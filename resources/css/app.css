@@ -693,6 +693,20 @@ input[type="submit"].search_btn:hover {
 }
 
 
+/* 会員管理 */
+.member_id_wrapper {
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: start;
+  gap: 46px;
+}
+.admin_edit_delete_btn_wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
+}
+
 
 
 
