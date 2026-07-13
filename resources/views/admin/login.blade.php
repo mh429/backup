@@ -1,36 +1,48 @@
 
 <x-admin_layout>
-  <header style="width: 800px; height:100px; background-color: #D0CECE">
-  </header>
+<header style="width: 800px; height:100px; background-color: #D0CECE">
+</header>
+
+<div class="contents">
 
   <h1>管理画面</h1>
 
-  <form action="{{ route('admin.login') }}" method="post">
-    @csrf
-    <div>
-      <label>
-        <p>ログインID</p>
-        <input type="text" name="login_id" value="{{ old('login_id') }}">
-      </label>
-    </div>
-    <div>
-      <label>
-        <p>パスワード</p>
-        <input type="text" name="password">        
-      </label>
-    </div>
+  <div class="wrapper500">
 
-    <div>
-      @if($errors->any())
-        <p style="color: red">※{{ $errors->first() }}</p>
-      @endif      
-    </div>
+    <form action="{{ route('admin.login') }}" method="post">
+      @csrf
 
-    <input type="submit" value="ログイン">
+      <div class="div_form_inputs">
+        <div>
+          <label class="input_wrapper">
+            <p>ログインID</p>
+            <input type="text" name="login_id" value="{{ old('login_id') }}" class="input_250">
+          </label>
+        </div>
+        <div>
+          <label class="input_wrapper">
+            <p>パスワード</p>
+            <input type="text" name="password" class="input_250 mask">        
+          </label>
+        </div>
 
-  </form>
+        <div class="error_wrapper">
+          @if($errors->any())
+            <p style="color: red">※{{ $errors->first() }}</p>
+          @endif      
+        </div>
+      </div>
 
-  <footer style="width: 800px; height:100px; background-color: #D0CECE">
-  </footer>
+      <div class="div_tac">
+        <input type="submit" value="ログイン" class="blue_submit">
+      </div>
 
+    </form>
+
+  </div>
+
+</div>
+
+<footer class="footer_admin">
+</footer>
 </x-admin_layout>

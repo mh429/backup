@@ -5,10 +5,14 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Laravel -admin-</title>
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+{{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
 </head>
 <body>
+    <div class="slot_wrapper_admin">
 
     {{ $slot }}
 
+    </div>
+    {{-- <script src="{{ asset('js/script.js') }}"></script> --}}
 </body>
 </html>

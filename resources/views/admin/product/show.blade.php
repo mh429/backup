@@ -79,7 +79,7 @@
           <p>{{ $review->comment }}</p>          
         </div>
         <div>
-          <a href="">商品レビュー詳細</a>
+          <a href="{{ route('admin.review.show', $review->id) }}">商品レビュー詳細</a>
         </div>
       </div>
       <hr>

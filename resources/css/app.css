@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -14,4 +14,729 @@ select {
 textarea {
   border: 1px solid #000;
   border-radius: 3px;
+} */
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 共通（Wrapper系） */
+.slot_wrapper {
+  width: 800px;
+  min-height: 500px;
+  margin: 50px auto;
+  background-color: #FEF2CB;
+}
+.slot_wrapper_admin {
+  width: 800px;
+  min-height: 500px;
+  margin: 50px auto;
+  background-color: #DDEBF7;
+  position: relative;
+}
+.contents {
+  padding: 20px;
+}
+.wrapper500 {
+  width: 500px;
+  margin: 20px auto;
+}
+.wrapper550 {
+  width: 550px;
+  margin: 20px auto;
+}
+.wrapper700 {
+  width: 700px;
+  margin: 20px auto;
+}
+.error_wrapper {
+  width: 400px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  color: red;
+  font-size: 12px;
+}
+.error_wrapper_td {
+  width: 300px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  color: red;
+  font-size: 12px;
+}
+.div_tac {
+  text-align: center;
+}
+.div_tar {
+  text-align: right;
+}
+.div_form_inputs {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.p_tac {
+  text-align: center;
+}
+.categories_wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+/* 共通（パーツ系） */
+h1 {
+  text-align: center;
+  font-size: 26px;
+}
+.pb_10 {
+  padding-bottom: 10px;
+}
+.pb_20 {
+  padding-bottom: 20px;
+}
+.pb_40 {
+  padding-bottom: 40px;
+}
+.bold {
+  font-weight: bold;
+}
+.mask {
+  -webkit-text-security: disc;
+}
+ul {
+  list-style-type: none;
+}
+input[type="submit"] {
+  width: 170px;
+  height: 36px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #EE7D31;
+  color: #fff;
+  text-align: center;
+  border: #d17639 1px solid;
+  border-radius: 5px;
+}
+input[type="submit"]:hover {
+  background-color: #d17639;
+  cursor: pointer;
+}
+input[type="submit"].blue_submit {
+  width: 170px;
+  height: 36px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #2F5598;
+  color: #fff;
+  text-align: center;
+  border: #254986 1px solid;
+  border-radius: 5px;
+}
+input[type="submit"].blue_submit:hover {
+  background-color: #254986;
+  cursor: pointer;
+}
+input[type="submit"].white_blue_submit {
+  width: 170px;
+  height: 36px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #2F5598;
+  text-align: center;
+  border: #2F5598 1px solid;
+  border-radius: 5px;
+}
+input[type="submit"].white_blue_submit:hover {
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+input[type="submit"].submit_fit {
+  width: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.input_250 {
+  width: 250px;
+}
+.input_300 {
+  width: 300px;
+}
+.text_300 {
+  width: 300px;
+  height: 150px;
+}
+.text_250 {
+  width: 250px;
+  height: 100px;
+}
+.white_btn {
+  display: inline-block;
+  width: 170px;
+  height: 36px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #EE7D31;
+  text-align: center;
+  border: #EE7D31 1px solid;
+  border-radius: 5px;  
+  text-decoration: none;
+}
+.white_btn:hover {
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+.orange_btn {
+  display: inline-block;
+  width: 170px;
+  height: 36px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #EE7D31;
+  color: #fff;
+  text-align: center;
+  border: #d17639 1px solid;
+  border-radius: 5px;  
+  text-decoration: none;  
+}
+.orange_btn:hover {
+  background-color: #d17639;
+  cursor: pointer;
+}
+.white_blue_btn {
+  display: inline-block;
+  width: 170px;
+  height: 36px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #2F5598;
+  text-align: center;
+  border: #2F5598 1px solid;
+  border-radius: 5px;  
+  text-decoration: none;
+}
+.white_blue_btn:hover {
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+.blue_btn {
+  display: inline-block;
+  width: 170px;
+  height: 36px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #2F5598;
+  color: #fff;
+  text-align: center;
+  border: #254986 1px solid;
+  border-radius: 5px;  
+  text-decoration: none;
+}
+.blue_btn:hover {
+  background-color: #254986;
+  cursor: pointer;
+}
+.a_btn_fit {
+  width: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+/* ヘッダー */
+header {
+  width: 800px; 
+  height:100px;
+  padding: 0 20px; 
+  background-color: #FBE4D5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header_left {
+  display: flex;
+  gap: 10px;
+}
+header a {
+  display: inline-block;
+  width: 120px;
+  height: 32px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: rgba(255,255,255,0);
+  color: #000;
+  text-align: center;
+  border: #000 1px solid;
+  text-decoration: none;  
+}
+header a:hover {
+  background-color: rgba(255,255,255,0.4);
+  cursor: pointer;
+}
+header input[type="submit"] {
+  width: 120px;
+  height: 32px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: rgba(255,255,255,0);
+  color: #000;
+  text-align: center;
+  border: #000 1px solid;
+  border-radius: 0px;
+}
+header input[type="submit"]:hover {
+  background-color: rgba(255,255,255,0.4);
+  cursor: pointer;
+}
+
+/* 管理者ヘッダー */
+.header_admin {
+  background-color: #D0CECE;
+}
+.header_admin h1 {
+  font-size: 18px;
+}
+.header_admin .header_left {
+  align-items: center;
+}
+/* 管理者フッター */
+.footer_admin {
+  width: 800px; 
+  height:100px;
+  background-color: #D0CECE;
+  position: absolute;
+  bottom: 0;
+
+}
+
+
+/* 会員登録 */
+.names_input_wrapper {
+  padding-bottom: 15px;
+  display: flex;
+  gap: 30px;
+}
+.name_input_wrapper {
+  display: flex;
+  gap: 15px;
+}
+.gender_input_wrapper {
+  padding-bottom: 15px;
+  display: flex;
+  gap: 30px;
+}
+.input_wrapper {
+  padding-bottom: 15px;
+  display: flex;
+  gap: 30px;
+}
+.input_wrapper p {
+  width: 150px;
+}
+/* 会員登録確認画面 */
+.confirm_table {
+  width: 480px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.confirm_table td,th {
+  padding: 15px;
+  vertical-align: top;
+}
+.confirm_table th {
+  width: 150px;
+  font-weight: normal;
+  text-align: left;
+}
+.confirm_table td {
+  word-break: break-all;
+}
+
+
+/* ログイン */
+.pass_forget {
+  text-decoration: none;
+  color: #0000EE;
+}
+.pass_forget_messages {
+  padding-bottom: 30px;
+}
+
+
+/* 商品登録 */
+.file_button_none {
+  display: none;
+}
+.file_button {
+  margin: 5px 0 5px 50px;
+  display: block;
+  width: 100px;
+  height: 24px;
+  padding: 2px 10px;
+  font-size: 12px;
+  background-color: #fff;
+  color: #EE7D31;
+  text-align: center;
+  border: #EE7D31 1px solid;
+  border-radius: 5px;  
+}
+.file_button:hover {
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+.image_confirm {
+  padding-bottom: 20px;
+}
+.no_file {
+  font-size: 14px;
+  padding: 5px 0 0 20px;
+}
+
+
+/* 商品一覧 */
+/* 検索フォーム */
+.search_wrapper {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 30px;
+  background-color: #fff;
+  border: 1px solid #000
+}
+input[type="submit"].search_btn {
+  width: 120px;
+  height: 36px;
+  padding: 5px 20px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  border: #000 2px solid;
+  border-radius: 0px;
+}
+input[type="submit"].search_btn:hover {
+  background-color: #e6e6e6;
+}
+.search_table {
+  width: 470px;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.search_table td,th {
+  padding: 10px;
+  vertical-align: top;
+}
+.search_table th {
+  width: 150px;
+  font-weight: normal;
+  text-align: left;
+}
+.search_table td {
+  word-break: break-all;
+}
+/* 商品リスト */
+.product_wrapper_index {
+  padding: 10px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 160px 220px 70px;
+  gap: 20px;
+}
+.product_image_index {
+  text-align: center;
+}
+.procudt_categories_index {
+  padding: 2px 4px;
+  background-color: #fff;
+  border: #000 1px solid;
+  font-size: 14px;
+}
+.product_title_index {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.product_title_index a {
+  color: #0000EE;
+  text-decoration: none;
+}
+.detail_btn {
+  display: inline-block;
+  width: 65px;
+  height: 30px;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #2F5598;
+  color: #fff;
+  text-align: center;
+  border: #254986 1px solid;
+  border-radius: 5px;  
+  text-decoration: none;
+}
+.detail_btn:hover {
+  background-color: #254986;
+  cursor: pointer;
+}
+.product_detailbtn_index {
+  height: 100%;
+  display: flex;
+  align-items: end;
+}
+
+
+/* 商品詳細 */
+.product_titles_show {
+  padding-top: 10px;
+  padding-bottom: 25px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.product_images_show {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.product_contents_show {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.product_reviews_show {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.review_total {
+  display: flex;
+  gap: 20px
+}
+.show_rebiews {
+  text-decoration: none;
+  color: #0000EE;
+}
+
+
+/* レビューの商品画像（共通） */
+.review_product_infomations {
+  padding: 10px;
+  padding-bottom: 20px;
+  display: flex;
+  gap: 30px;
+}
+
+
+/* レビュー詳細 */
+.review_wrapper {
+  padding: 10px 20px;
+}
+.review_flex {
+  display: flex;
+  gap: 20px;
+}
+.review_left {
+  width: 150px;
+  font-weight: bold;
+}
+.stars {
+  width: 120px;
+}
+.review_comment {
+  width: 340px;
+}
+
+/* レビュー登録 */
+.mini_table {
+  width: 450px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+}
+.mini_table td,th {
+  padding: 15px;
+  vertical-align: top;
+}
+.mini_table th {
+  width: 150px;
+  font-weight: normal;
+  text-align: left;
+}
+.mini_table td {
+  word-break: break-all;
+}
+.review_store_message {
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+
+/* マイページ */
+.edit_email {
+  padding-bottom: 15px;
+  display: flex;
+  gap: 30px;
+}
+.edit_email p {
+  width: 200px;
+}
+.mypage_review_product_title {
+  font-size: 18px;
+  font-weight: normal;
+  color: #0000EE;
+}
+.mypage_editdelete_btn {
+  display: inline-block;
+  height: 30px;
+  padding: 5px 8px;
+  margin-right: 5px;
+  font-size: 14px;
+  background-color: #2F5598;
+  color: #fff;
+  text-align: center;
+  border: #254986 1px solid;
+  border-radius: 5px;  
+  text-decoration: none;
+}
+.mypage_editdelete_btn:hover {
+  background-color: #254986;
+  cursor: pointer;
+}
+
+
+/* 管理者トップ画面 */
+.admin_top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 管理者画面共通 */
+/* 検索テーブル */
+.admin_search_table {
+  width: 100%;
+  border: 2px solid #000;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+}
+.admin_search_table td,
+.admin_search_table th {
+  padding: 15px;
+  vertical-align: top;
+  border: 1px solid #000;
+}
+.admin_search_table th {
+  width: 150px;
+  font-weight: bold;
+  text-align: left;
+  background-color: #D9D9D9;
+}
+.admin_search_table td {
+  padding-left: 38px;
+}
+.admin_search_table_gender {
+  padding-right: 20px;
+}
+/* 情報テーブル */
+.admin_member_table {
+  width: 100%;
+  border: 2px solid #000;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.admin_member_table td,
+.admin_member_table th {
+  border: 1px dotted #000;
+}
+.admin_member_table th {
+  height: 22px;
+  padding: 2px;
+  font-weight: normal;
+  text-align: center;
+  background-color: #D9D9D9;
+  border-bottom: 1px solid #000;
+}
+.admin_member_table th a{
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
+.admin_member_table td {
+  text-align: center;
+  padding: 2px;
+  background-color: #fff;
+}
+.admin_member_table td a{
+  color: #0000EE;
+  text-decoration: none;
+}
+.th_id {
+  width: 54px;
+}
+.th_member_name {
+  width: 127px;
+}
+.th_gender {
+  width: 45px;
+}
+.th_created_at {
+  width: 108px;
+}
+.th_edit_detail {
+  width: 46px;
+}
+.th_product_id {
+  width: 64px;
+}
+
+
+
+
+
+/* ページャー */
+.pager_prev_back,
+.pager_selected,
+.pager_page {
+  display: block;
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #000;
+  text-decoration: none;
+  text-align: center;
+}
+.pager_selected {
+  color: #fff;
+  background-color: #666;
+}
+.pager_prev_back {
+  padding: 0 2px;
+  width: 54px;
+  height: 26px;
+}
+.pager_dummy {
+  width: 54px;
+  height: 26px;
+}
+.pager_selected,
+.pager_page {
+  width: 22px;
+  height: 26px;
+}
+.pager_nav {
+  width: 220px;
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+.pager_pages {
+  display: flex;
+}
+.pager_nav_wrapper {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
